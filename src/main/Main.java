@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Main {
     static java.sql.Connection connection;
+    static String usuario = "";
 
     public static java.sql.Connection getConnection(){
         String host = "jdbc:sqlite:src/main/resources/network.sqlite";
@@ -24,12 +25,19 @@ public class Main {
         int opcion = 0;
 
         while (opcion != 4) {
+            if (!usuario.isEmpty()) {
+                System.out.println("Usuario: " + usuario);
+                System.out.println("0 - Cerrar Sesion");
+            }
             System.out.println("1 - Usuarios");
             System.out.println("2 - Posts");
             System.out.println("3 - Comentarios");
             System.out.println("4 - Salir");
             opcion = sc.nextInt();
-            if (opcion == 1) {
+            if (opcion == 0 && !usuario.isEmpty()) {
+                System.out.println("Cerrando sesión...\n");
+                usuario = "";
+            }else if (opcion == 1) {
                 GestionUsuarios.gestionMenu();
 
             }

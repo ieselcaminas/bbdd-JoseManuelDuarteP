@@ -15,11 +15,14 @@ public class GestionUsuarios {
             System.out.println("3 - Salir");
 
             opcion = sc.nextInt();
-            if (opcion == 1){
+            if (opcion == 1) {
                 //Llamada a método para logearase
-                boolean logeado = loggearse();
-                if (logeado) break;
-
+                if (!loggearse().isEmpty()) {
+                    System.out.println("Usuario " + Main.usuario + " Logeado\n");
+                    break;
+                } else {
+                    System.out.println("Usuario no encontrado\n");
+                }
             } else if (opcion == 2){
                 addUser();
             }
@@ -27,7 +30,7 @@ public class GestionUsuarios {
 
     }
 
-    public static boolean loggearse() throws SQLException {
+    public static String loggearse() throws SQLException {
         String usuario;
         String password;
         Scanner sc = new Scanner(System.in);
@@ -45,7 +48,13 @@ public class GestionUsuarios {
         st.setString(1, usuario);
         st.setString(2, password);
         ResultSet rs = st.executeQuery();
-        return rs.next();
+
+        if(rs.next()) {
+            Main.usuario = rs.getString(2);
+            return ".";
+        } else {
+            return "";
+        }
     }
 
     public static void addUser() throws SQLException {
@@ -71,5 +80,7 @@ public class GestionUsuarios {
         st.setString(3, password);
         st.executeUpdate();
         st.close();
+
+        Main.usuario = usuario;
     }
 }
