@@ -16,7 +16,7 @@ public class GestionUsuarios {
 
             opcion = sc.nextInt();
             if (opcion == 1) {
-                //Llamada a método para logearase
+                //Llamada a metodo para logearase
                 if (!loggearse().isEmpty()) {
                     System.out.println("Usuario " + Main.usuario + " Logeado\n");
                     break;
@@ -26,7 +26,7 @@ public class GestionUsuarios {
             } else if (opcion == 2){
                 addUser();
             }
-        }
+        }   //
 
     }
 
