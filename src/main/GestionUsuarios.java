@@ -81,6 +81,5 @@ public class GestionUsuarios {
         st.executeUpdate();
         st.close();
 
-        Main.usuario = usuario;
     }
 }
