@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Main {
     static java.sql.Connection connection;
     static String usuario = "";
+    static int idUsuario = -1;
 
     public static java.sql.Connection getConnection(){
         String host = "jdbc:sqlite:src/main/resources/network.sqlite";

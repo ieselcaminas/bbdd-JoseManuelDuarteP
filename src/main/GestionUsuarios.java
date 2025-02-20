@@ -26,7 +26,7 @@ public class GestionUsuarios {
             } else if (opcion == 2){
                 addUser();
             }
-        }   //
+        }
 
     }
 
@@ -51,6 +51,7 @@ public class GestionUsuarios {
 
         if(rs.next()) {
             Main.usuario = rs.getString(2);
+            Main.idUsuario = rs.getInt(1);
             return ".";
         } else {
             return "";
