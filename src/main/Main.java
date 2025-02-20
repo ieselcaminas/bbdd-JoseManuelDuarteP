@@ -40,7 +40,8 @@ public class Main {
                 usuario = "";
             }else if (opcion == 1) {
                 GestionUsuarios.gestionMenu();
-
+            }else if (opcion == 2) {
+                GestionPosts.gestionMenu();
             }
         }
     }

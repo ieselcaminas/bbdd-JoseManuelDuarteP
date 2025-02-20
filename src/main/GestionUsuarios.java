@@ -43,7 +43,7 @@ public class GestionUsuarios {
 
         PreparedStatement st = null;
         String buscarUser =
-                "SELECT nombre, contrasenya FROM usuarios WHERE nombre = ? AND contrasenya = ?";
+                "SELECT id, nombre, contrasenya FROM usuarios WHERE nombre = ? AND contrasenya = ?";
         st = con.prepareStatement(buscarUser);
         st.setString(1, usuario);
         st.setString(2, password);
