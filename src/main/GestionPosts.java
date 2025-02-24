@@ -12,7 +12,7 @@ public class GestionPosts {
 
         while (opcion != 3){
             System.out.println("1 - Nuevo post");
-            System.out.println("2 - Mostrar posts de Usuario");
+            System.out.println("2 - Mostrar posts de un usuario");
             System.out.println("3 - Salir");
 
             opcion = sc.nextInt();
@@ -57,16 +57,56 @@ public class GestionPosts {
         nombreConsulta = sc.nextLine();
 
         PreparedStatement st =
-                con.prepareStatement("SELECT posts.texto " +
+                con.prepareStatement("SELECT * " +
                         "FROM posts INNER JOIN usuarios ON posts.id_usuario=usuarios.id " +
                         "WHERE usuarios.nombre = ?");
 
         st.setString(1, nombreConsulta);
-
         ResultSet rs = st.executeQuery();
         while (rs.next()) {
-            System.out.println(rs.getString("texto") + "\n");
+            imprimirPosts(
+                    rs.getInt("id"),rs.getString("texto"),
+                    rs.getInt("likes"), rs.getDate("fecha"), nombreConsulta);
+
+            if (!Main.usuario.isEmpty()) {
+                char opcion;
+                do {
+                    System.out.println("¿Dar like? (s/n)");
+                    opcion = sc.next().charAt(0);
+
+                    if (opcion == 's') {
+                        darLike(rs.getInt("id"));
+                    } else if (opcion != 'n') {
+                        System.out.println("Opción no válida.");
+                    }
+
+                } while (opcion != 's' && opcion != 'n');
+            }
         }
+
+        st.close();
         rs.close();
+    }
+
+    public static void imprimirPosts
+            (int id, String texto, int likes, java.sql.Date fecha, String nombreUsu) {
+        System.out.println("ID: " + id);
+        System.out.println("Post: " + texto);
+        System.out.println("Likes: " + likes);
+        System.out.println("Fecha: " + fecha);
+        System.out.println("Usuario: " + nombreUsu);
+        System.out.println("-----------------------------------------");
+    }
+
+    public static void darLike(int idPost) throws SQLException {
+        Connection con = Main.connection;
+
+        PreparedStatement st =
+                con.prepareStatement("UPDATE posts SET likes = likes + 1 " +
+                                    "WHERE id = ?");
+
+        st.setInt(1, idPost);
+        st.executeUpdate();
+        st.close();
     }
 }
