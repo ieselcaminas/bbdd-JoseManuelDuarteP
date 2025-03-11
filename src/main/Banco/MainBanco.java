@@ -28,7 +28,7 @@ public class MainBanco {
         int opcion = 0;
 
         while (opcion != -1) {
-
+            sacarBanner();
             if (!usuario.isEmpty()) {
                 System.out.println("Bienvenido " + usuario + "\n");
                 System.out.println("0 - Cerrar Sesion");
@@ -39,7 +39,9 @@ public class MainBanco {
             System.out.println("3 - Gestión de prestamos");
             System.out.println("4 - Gestión de sucursales");
             System.out.println("5 - Gestión de movimientos");
+            System.out.print(Color.ROJO.getColor());
             System.out.println("-1 - Salir");
+            System.out.print(Color.RESET.getColor());
 
             opcion = sc.nextInt();
 
@@ -47,8 +49,37 @@ public class MainBanco {
                 usuario = "";
                 System.out.println("Cerrando sesión...");
             } else if (opcion == 1) {
-
+                GestionUsuarios.menu();
             }
         }
+    }
+
+    public static void sacarBanner() {
+        System.out.print(Color.VERDE.getColor());
+        System.out.println("'########::'####:'########:'##::: ##:'##::::'##:'########:'##::: ##:'####:'########:::'#######::");
+        System.out.println(" ##.... ##:. ##:: ##.....:: ###:: ##: ##:::: ##: ##.....:: ###:: ##:. ##:: ##.... ##:'##.... ##:");
+        System.out.println(" ##:::: ##:: ##:: ##::::::: ####: ##: ##:::: ##: ##::::::: ####: ##:: ##:: ##:::: ##: ##:::: ##:");
+        System.out.println(" ########::: ##:: ######::: ## ## ##: ##:::: ##: ######::: ## ## ##:: ##:: ##:::: ##: ##:::: ##:");
+        System.out.println(" ##.... ##:: ##:: ##...:::: ##. ####:. ##:: ##:: ##...:::: ##. ####:: ##:: ##:::: ##: ##:::: ##:");
+        System.out.println(" ##:::: ##:: ##:: ##::::::: ##:. ###::. ## ##::: ##::::::: ##:. ###:: ##:: ##:::: ##: ##:::: ##:");
+        System.out.println(" ########::'####: ########: ##::. ##:::. ###:::: ########: ##::. ##:'####: ########::. #######::");
+        System.out.println("........:::....::........::..::::..:::::...:::::........::..::::..::....::........::::.......:::");
+        System.out.println(":::'###:::::::'########:'##::::'##:                                                              ");
+        System.out.println("::'## ##::::::... ##..:: ##:::: ##:                                                              ");
+        System.out.println(":'##:. ##:::::::: ##:::: ##:::: ##:                                                              ");
+        System.out.println("'##:::. ##::::::: ##:::: ##:::: ##:                                                              ");
+        System.out.println(" #########::::::: ##:::: ##:::: ##:                                                              ");
+        System.out.println(" ##.... ##::::::: ##:::: ##:::: ##:                                                              ");
+        System.out.println(" ##:::: ##::::::: ##::::. #######::                                                              ");
+        System.out.println("..:::::..::::::::..::::::.......:::                                                              ");
+        System.out.println("'########:::::'###::::'##::: ##::'######:::'#######::                                            ");
+        System.out.println(" ##.... ##:::'## ##::: ###:: ##:'##... ##:'##.... ##:                                            ");
+        System.out.println(" ##:::: ##::'##:. ##:: ####: ##: ##:::..:: ##:::: ##:                                            ");
+        System.out.println(" ########::'##:::. ##: ## ## ##: ##::::::: ##:::: ##:                                            ");
+        System.out.println(" ##.... ##: #########: ##. ####: ##::::::: ##:::: ##:                                            ");
+        System.out.println(" ##:::: ##: ##.... ##: ##:. ###: ##::: ##: ##:::: ##:                                            ");
+        System.out.println(" ########:: ##:::: ##: ##::. ##:. ######::. #######::                                            ");
+        System.out.println("........:::..:::::..::..::::..:::......::::.......:::                                            ");
+        System.out.println(Color.RESET.getColor());
     }
 }

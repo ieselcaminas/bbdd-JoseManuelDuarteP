@@ -1,6 +1,7 @@
 package Banco;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -10,12 +11,16 @@ public class GestionUsuarios {
         int opcion = 0;
 
         while (opcion != -1) {
+            System.out.print(Color.AMARILLO.getColor());
             System.out.println("\nMenu de usuarios");
             System.out.println("-------------------------------");
+            System.out.print(Color.RESET.getColor());
             System.out.println("1 - Crear usuario");
             System.out.println("2 - Iniciar sesión");
             System.out.println("3 - Eliminar usuario");
+            System.out.print(Color.ROJO.getColor());
             System.out.println("-1 - Volver");
+            System.out.print(Color.RESET.getColor());
 
             opcion = sc.nextInt();
 
@@ -39,5 +44,13 @@ public class GestionUsuarios {
         System.out.println("Introduzca el dni del usuario: ");
         dni = sc.nextLine();
 
+        PreparedStatement pt;
+        String nuevoUsu = "INSERT INTO usuario (dni, nombre, contrasenya) VALUES(?,?,?)";
+        pt = con.prepareStatement(nuevoUsu);
+        pt.setString(1, dni);
+        pt.setString(2, usuario);
+        pt.setString(3, contraseny);
+        pt.executeUpdate();
+        pt.close();
     }
 }
