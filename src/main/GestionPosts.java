@@ -10,10 +10,11 @@ public class GestionPosts {
         Scanner sc = new Scanner(System.in);
         int opcion = 0;
 
-        while (opcion != 3){
+        while (opcion != 4){
             System.out.println("1 - Nuevo post");
             System.out.println("2 - Mostrar posts de un usuario");
-            System.out.println("3 - Salir");
+            System.out.println("3 - Mostrar todos los posts");
+            System.out.println("4 - Salir");
 
             opcion = sc.nextInt();
             if (opcion == 1) {
@@ -21,6 +22,8 @@ public class GestionPosts {
                 addPost();
             } else if (opcion == 2) {
                 mostrarPosts();
+            } else if (opcion == 3) {
+                listarTodosLosPostsConComentarios();
             }
         }
 
@@ -108,5 +111,60 @@ public class GestionPosts {
         st.setInt(1, idPost);
         st.executeUpdate();
         st.close();
+    }
+
+    public static void mostrarTodosLosPosts() throws SQLException {
+        Connection con = Main.connection;
+
+        PreparedStatement st = con.prepareStatement("SELECT p.id, p.texto, p.likes, p.fecha, u.nombre" +
+                " FROM posts as p " +
+                " INNER JOIN usuarios as u ON p.id_usuario = u.id");
+
+        ResultSet rs = st.executeQuery();
+        while (rs.next()){
+            printPost(rs);
+        }
+    }
+
+    public static void printPost(ResultSet rs) throws SQLException {
+        System.out.println(rs.getInt(1) + " " +
+                rs.getString(2) + " likes:" +
+                rs.getInt(3) + " " + rs.getDate(4) +
+                " " + rs.getString(5));
+
+    }
+
+    public static void listarTodosLosPostsConComentarios() throws SQLException {
+        Connection con = Main.connection;
+
+        PreparedStatement st = con.prepareStatement("SELECT p.id, p.texto, p.likes, p.fecha, u.nombre FROM posts as p " +
+                "INNER JOIN usuarios as u ON p.id_usuario = u.id");
+
+        ResultSet rs = st.executeQuery();
+        while (rs.next()){
+
+            printPost(rs);
+            printComments(rs.getInt(1));
+        }
+    }
+
+    private static void printComments(int idPost) throws SQLException {
+        // Recogemos la conexión
+        Connection con = Main.connection;
+        //Creamos sl SQL
+        PreparedStatement st = con.prepareStatement("SELECT c.id, c.texto, c.fecha, u.nombre" +
+                " FROM comentarios as c " +
+                " INNER JOIN usuarios as u ON c.id_usuario = u.id " +
+                " INNER JOIN posts as p ON c.id_post = p.id"+
+                " WHERE p.id = ?");
+        //Y recogemos los datos
+        st.setInt(1, idPost);
+        ResultSet rs = st.executeQuery();
+        while (rs.next()){//Mientras haya datos, vamos de 1 en 1
+            //Aquí va a ir el código para imprimir un comentario
+            //Pero lo haremos en otro método llamado GestionComentarios.printComment() al que
+            //se le pasa la fila actual del rs
+            GestionComentarios.printComment(rs);
+        }
     }
 }
