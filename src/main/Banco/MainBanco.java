@@ -27,6 +27,28 @@ public class MainBanco {
         Scanner sc = new Scanner(System.in);
         int opcion = 0;
 
+        while (opcion != -1) {
 
+            if (!usuario.isEmpty()) {
+                System.out.println("Bienvenido " + usuario + "\n");
+                System.out.println("0 - Cerrar Sesion");
+            }
+
+            System.out.println("1 - Gestión de usuarios");
+            System.out.println("2 - Gestión de Cuenta Corriente");
+            System.out.println("3 - Gestión de prestamos");
+            System.out.println("4 - Gestión de sucursales");
+            System.out.println("5 - Gestión de movimientos");
+            System.out.println("-1 - Salir");
+
+            opcion = sc.nextInt();
+
+            if (opcion == 0 && !usuario.isEmpty()) {
+                usuario = "";
+                System.out.println("Cerrando sesión...");
+            } else if (opcion == 1) {
+
+            }
+        }
     }
 }
