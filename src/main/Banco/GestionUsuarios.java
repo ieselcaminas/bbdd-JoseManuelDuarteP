@@ -38,9 +38,9 @@ public class GestionUsuarios {
         String dni;
 
         System.out.println("Introduzca el nombre de usuario: ");
-        String usuario = sc.nextLine();
+        nombre = sc.nextLine();
         System.out.println("Introduzca la contraseña: ");
-        String contraseny = sc.nextLine();
+        contrasenya = sc.nextLine();
         System.out.println("Introduzca el dni del usuario: ");
         dni = sc.nextLine();
 
@@ -48,8 +48,8 @@ public class GestionUsuarios {
         String nuevoUsu = "INSERT INTO usuario (dni, nombre, contrasenya) VALUES(?,?,?)";
         pt = con.prepareStatement(nuevoUsu);
         pt.setString(1, dni);
-        pt.setString(2, usuario);
-        pt.setString(3, contraseny);
+        pt.setString(2, nombre);
+        pt.setString(3, contrasenya);
         pt.executeUpdate();
         pt.close();
     }
